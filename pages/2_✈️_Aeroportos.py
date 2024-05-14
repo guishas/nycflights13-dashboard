@@ -68,6 +68,8 @@ with st.sidebar:
     else:
         df_airport = df
 
+st.session_state["airport"] = airport
+
 st.write("# Aeroporto: ", airport)
 
 cols = st.columns((1.5, 4.5, 2), gap='medium')

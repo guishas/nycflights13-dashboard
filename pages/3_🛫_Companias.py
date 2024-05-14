@@ -10,7 +10,13 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-df = st.session_state["data"]
+if st.session_state.get("airport") != None and st.session_state.get("airport") != "Todos":
+    airport = st.session_state.get("airport")
+    df = st.session_state["data"]
+    df = df[df["origin"] == st.session_state["airport"]]
+else:
+    airport = None
+    df = st.session_state["data"]
 
 def format_number(num):
     num = num/1.6
@@ -60,6 +66,8 @@ def make_choropleth(df):
     return choropleth
 
 with st.sidebar:
+    st.selectbox("Aeroporto", [airport if airport != None else "Todos"], disabled=True)
+
     airlines = df["name"].unique()
 
     airline = st.sidebar.selectbox("Compania aérea", ["Todas"] + list(airlines))
