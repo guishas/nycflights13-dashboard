@@ -9,10 +9,11 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-df = pd.read_excel("dashboard.xlsx", "flights")
-
 if "data" not in st.session_state:
+    df = pd.read_excel("dashboard.xlsx", "flights")
     st.session_state["data"] = df
+else:
+    df = st.session_state["data"]
 
 st.write("# NYC Flights 2013 ✈")
 
